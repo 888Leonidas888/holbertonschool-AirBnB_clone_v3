@@ -93,12 +93,13 @@ class DBStorage:
         Count the number of objects in storage
 
         Args:
-            cls: Optional class parameter. If provided, count only objects of this class.
+            cls: Optional class parameter.
+            If provided, count only objects of this class.
                  If not provided, count all objects in storage.
 
         Returns:
-            The number of objects in storage matching the given class. If no class is passed,
-            returns the count of all objects in storage.
+            The number of objects in storage matching the given class.
+            If no class is passed,returns the count of all objects in storage.
         """
         if cls:
             return sum([1 for obj in self.all().values()
