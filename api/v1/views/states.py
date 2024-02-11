@@ -20,9 +20,9 @@ def create_state():
     """Crea un nuevo objeto Estado"""
     data = request.get_json()
     if not isinstance(data, dict):
-        return make_response(jsonify({'error': 'Not a JSON'}), 400)
+        return make_response('Not a JSON', 400)
     elif "name" not in data:
-        return make_response(jsonify({'error': 'Missing name'}), 400)
+        return make_response('Missing name', 400)
     else:
         new_state = State(**data)
         new_state.save()
@@ -47,7 +47,7 @@ def update_state(state_id):
         abort(404)
     data = request.get_json()
     if not isinstance(data, dict):
-        return make_response(jsonify({'error': 'Not a JSON'}), 400)
+        return make_response('Not a JSON', 400)
     for key, value in data.items():
         if key not in ['id', 'created_at', 'updated_at']:
             setattr(state, key, value)
