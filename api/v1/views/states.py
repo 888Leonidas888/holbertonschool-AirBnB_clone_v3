@@ -21,3 +21,13 @@ def state(state_id):
         return jsonify(state.to_dict())
     else:
         return 404
+
+@app_views.route('/states/<state_id>', methods=['DELETE'])
+def delete_state(state_id):
+    state = storage.get(State, state_id)
+    if not state:
+        return 404
+    else:
+        storage.delete(state)
+        storage.save()
+        return jsonify({}), 200
