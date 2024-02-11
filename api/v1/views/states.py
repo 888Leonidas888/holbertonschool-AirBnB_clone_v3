@@ -34,7 +34,7 @@ def create_state():
 def get_state(state_id):
     """Recupera un objeto de State por su id"""
     state = storage.get(State, state_id)
-    if not state:
+    if state is None:
         abort(404)
     else:
         return jsonify(state.to_dict())
@@ -44,7 +44,7 @@ def get_state(state_id):
 def update_state(state_id):
     """Actualiza un objeto de estado por su id"""
     state = storage.get(State, state_id)
-    if not state:
+    if state is None:
         abort(404)
 
     data = request.get_json()
@@ -63,7 +63,7 @@ def update_state(state_id):
 def delete_state(state_id):
     """Elimina un objeto de State por su id"""
     state = storage.get(State, state_id)
-    if not state:
+    if state is None:
         abort(404)
     storage.delete(state)
     storage.save()
