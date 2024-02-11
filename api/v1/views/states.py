@@ -5,7 +5,7 @@ nuestros hacer un CRUD con State"""
 from models.state import State
 from api.v1.views import app_views
 from models import storage
-from flask import jsonify, request, abort
+from flask import jsonify, request, abort, make_response
 
 
 @app_views.route('/states', strict_slashes=False, methods=['GET'])
@@ -19,10 +19,10 @@ def get_states():
 def create_state():
     """Crea un nuevo objeto Estado"""
     data = request.get_json()
-    if not data:
-        abort(400, "Not a JSON")
+    if not isinstance(data, dict):
+        return make_response(jsonify({'error': 'Not a JSON'}), 400)
     elif "name" not in data:
-        abort(400, "Missing name")
+        return make_response(jsonify({'error': 'Missing name'}), 400)
     else:
         new_state = State(**data)
         new_state.save()
@@ -46,8 +46,8 @@ def update_state(state_id):
     if not state:
         abort(404)
     data = request.get_json()
-    if not data:
-        abort(400, "Not a JSON")
+    if not isinstance(data, dict):
+        return make_response(jsonify({'error': 'Not a JSON'}), 400)
     for key, value in data.items():
         if key not in ['id', 'created_at', 'updated_at']:
             setattr(state, key, value)
