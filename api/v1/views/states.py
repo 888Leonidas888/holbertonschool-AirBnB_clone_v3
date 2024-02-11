@@ -14,7 +14,7 @@ def states():
     temp = [obj.to_dict() for obj in storage.all(State).values()]
     return jsonify(temp)
 
-@app_views.route('/states/<int=state_id>', strict_slashes=False, methods=['GET'])
+@app_views.route('/states/<int:state_id>', strict_slashes=False, methods=['GET'])
 def state(state_id):
     state = storage.all(state_id)
     if state:
