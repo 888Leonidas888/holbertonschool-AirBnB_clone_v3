@@ -15,7 +15,7 @@ def states():
     return jsonify(temp)
 
 @app_views.route('/states', strict_slashes=False, methods=['POST'])
-def create_state(self):
+def create_state():
     """Crea un nuevo objeto Estado"""
     data = request.get_json()
     if not data:
