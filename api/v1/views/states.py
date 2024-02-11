@@ -1,4 +1,4 @@
-#!usr/bin/python3
+#!/usr/bin/python3
 """Este módulo contiene todas las rutas para
 nuestros hacer un CRUD con State"""
 
