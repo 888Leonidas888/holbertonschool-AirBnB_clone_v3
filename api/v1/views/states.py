@@ -20,4 +20,4 @@ def state(state_id):
     if state:
         return jsonify(state.to_dict())
     else:
-        return 404
+        return "Error"
