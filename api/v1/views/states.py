@@ -20,13 +20,14 @@ def create_state():
     """Crea un nuevo objeto Estado"""
     data = request.get_json()
     if not isinstance(data, dict):
-        return make_response('Not a JSON', 400)
-    elif "name" not in data:
-        return make_response('Missing name', 400)
-    else:
-        new_state = State(**data)
-        new_state.save()
-        return jsonify(new_state.to_dict()), 201
+        return make_response(jsonify({'error': 'Not a JSON'}), 400)
+
+    if "name" not in data:
+        return make_response(jsonify({'error': 'Missing name'}), 400)
+
+    new_state = State(**data)
+    new_state.save()
+    return jsonify(new_state.to_dict()), 201
 
 
 @app_views.route('/states/<state_id>', strict_slashes=False, methods=['GET'])
@@ -45,9 +46,11 @@ def update_state(state_id):
     state = storage.get(State, state_id)
     if not state:
         abort(404)
+
     data = request.get_json()
     if not isinstance(data, dict):
-        return make_response('Not a JSON', 400)
+        return make_response(jsonify({'error': 'Not a JSON'}), 400)
+
     for key, value in data.items():
         if key not in ['id', 'created_at', 'updated_at']:
             setattr(state, key, value)
