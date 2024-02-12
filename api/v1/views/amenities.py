@@ -15,7 +15,8 @@ def get_amenities():
     return jsonify(temp)
 
 
-@app_views.route('/amenities/<amenity_id>', strict_slashes=False, methods=['GET'])
+@app_views.route('/amenities/<amenity_id>', strict_slashes=False,
+                 methods=['GET'])
 def get_amanities(amenity_id):
     """Recupera un objeto Amenity por su id"""
     amenity = storage.get(Amenity, amenity_id)
@@ -23,7 +24,7 @@ def get_amanities(amenity_id):
         abort(404)
     else:
         return jsonify(amenity.to_dict())
-    
+
 
 @app_views.route('/amenities/<amenity_id>', strict_slashes=False,
                  methods=['DELETE'])
@@ -47,12 +48,13 @@ def create_amenities():
     if "name" not in data:
         return make_response(jsonify({'error': 'Missing name'}), 400)
 
-    new_state = Amenity(**data)
-    new_state.save()
-    return jsonify(new_state.to_dict()), 201
+    new_amenity = Amenity(**data)
+    new_amenity.save()
+    return jsonify(new_amenity.to_dict()), 201
 
 
-@app_views.route('amenities/<amenity_id>', strict_slashes=False, methods=['PUT'])
+@app_views.route('amenities/<amenity_id>', strict_slashes=False,
+                 methods=['PUT'])
 def update_amenities(amenity_id):
     """Actualiza un objeto Amenity por su id."""
     amenity = storage.get(Amenity, amenity_id)
