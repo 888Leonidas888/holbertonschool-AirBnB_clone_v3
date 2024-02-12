@@ -16,7 +16,7 @@ def get_user():
 
 
 @app_views.route('users/<user_id>', strict_slashes=False, methods=['GET'])
-def get_user(user_id):
+def get_users(user_id):
     """Recupera un objeto User por su id"""
     user = storage.get(User, user_id)
     if user is None:
