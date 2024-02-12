@@ -53,14 +53,18 @@ def create_review(place_id):
     data = request.get_json()
     if not isinstance(data, dict):
         return make_response(jsonify({'error': 'Not a JSON'}), 400)
+
     if 'user_id' not in data:
         return make_response(jsonify({'error': 'Missing user_id'}), 400)
+
+    user = storage.get(User, data['user_id'])
+    if user is None:
+        abort(404)
+
     if 'text' not in data:
         return make_response(jsonify({'error': 'Missing text'}), 400)
-    user_id = data['user_id']
-    user = storage.get(User, user_id)
-    if not user:
-        abort(404)
+
+    data['place_id'] = place_id
     new_review = Review(**data)
     new_review.save()
     return jsonify(new_review.to_dict()), 201
