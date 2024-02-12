@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Este módulo contiene todas las rutas para
-nuestros hacer un CRUD con Amenity"""
+nuestros hacer un CRUD con User"""
 
 from models.user import User
 from api.v1.views import app_views
