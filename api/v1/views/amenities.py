@@ -17,7 +17,7 @@ def get_amenities():
 
 @app_views.route('/amenities/<amenity_id>', strict_slashes=False,
                  methods=['GET'])
-def get_amanities(amenity_id):
+def get_amenity(amenity_id):
     """Recupera un objeto Amenity por su id"""
     amenity = storage.get(Amenity, amenity_id)
     if amenity is None:
